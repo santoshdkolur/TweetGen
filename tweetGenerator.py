@@ -6,7 +6,7 @@ from selenium.webdriver import ChromeOptions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-os.system("sudo apt-get install -y chromium-browser")
+
 
 options = ChromeOptions()
 options.add_argument("headless")
