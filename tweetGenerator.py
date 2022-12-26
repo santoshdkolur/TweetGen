@@ -102,8 +102,8 @@ def generate(iname, iusername,itweet,itweet_image):
     generate_image = driver.find_element(by=By.ID, value ="downloadButton")
     wait2 =WebDriverWait(driver, 10)
     wait2.until(EC.element_to_be_clickable(generate_image))
-
-    generate_image.click()
+    driver.execute_script("arguments[0].click();", generate_image)
+    # generate_image.click()
     sleep(3)
     final_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[2]/div/div[3]/img")
     src=final_image.get_attribute('src')
