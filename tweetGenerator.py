@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 options = ChromeOptions()
-#options.add_argument("headless")
+options.add_argument("headless")
 
 
 
