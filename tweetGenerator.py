@@ -38,8 +38,8 @@ def get_file_content_chrome(driver, uri):
 def generate(iname, iusername,itweet,itweet_image):
   
 
-    #driver = webdriver.Chrome('\chromedriver',chrome_options=options)
-    driver = get_driver()
+    driver = webdriver.Chrome('/app/tweetgen/chromedriver',chrome_options=options)
+    #driver = get_driver()
     
     driver.get(os.getcwd()+"\webpage\Tweetgen.html")
     theme = driver.find_element(by=By.XPATH,value="/html/body/div/div/div[1]/form/div[2]/div[3]/label")
