@@ -14,7 +14,6 @@ from selenium.webdriver.chrome.options import Options
 options = Options()
 options.add_argument("headless")
 
-@st.experimental_singleton
 def get_driver():
   return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
