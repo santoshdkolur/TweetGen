@@ -1,5 +1,4 @@
 streamlit
-selenium
 Pillow
-chrome
-chromiumdriver
+seleniumbase
+webdriver-manager
