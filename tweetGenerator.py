@@ -69,12 +69,12 @@ def generate(iname, iusername,itweet,itweet_image):
     tweet.clear()
     tweet.send_keys(itweet)
     profile_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[5]/input")
-    profile_image.send_keys(os.getcwd()+"\\spiderman.jpg")
+    profile_image.send_keys("spiderman.jpg")
 
     
     tweet_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[10]/input")
     """if itweet_image is not None:
-        tweet_image.send_keys(os.getcwd()+"\\uploadedTweetImg.jpg")
+        tweet_image.send_keys("uploadedTweetImg.jpg")
     else:
         tweet_image.clear()"""
 
