@@ -1,6 +1,7 @@
 import streamlit as st
 import tweetGenerator as TG
 from PIL import Image
+import os
 
 def make_square(im, min_size=256, fill_color=(0, 0, 0, 0)):
     x, y = im.size
@@ -11,7 +12,7 @@ def make_square(im, min_size=256, fill_color=(0, 0, 0, 0)):
 
 
 st.title("Thulp Fiction")
-
+st.text(os.getcwd())
 st.caption("Template Tweet")
 st.image("Template.png")
 
