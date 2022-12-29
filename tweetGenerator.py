@@ -45,18 +45,11 @@ def generate(iname, iusername,itweet,itweet_image):
     theme = driver.find_element(by=By.XPATH,value="/html/body/div/div/div[1]/form/div[2]/div[3]/label")
     theme.click()
     name = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[6]/input")
-    if iname=="Null":
-        name.send_keys("Thulp fiction")
-    else:
-        name.send_keys(iname)
-
+    name.clear()
+    name.send_keys(iname)
     username = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[7]/div[1]/input")
-    username.send_keys("wemighthavesomethinghere")
     username.clear()
-    if iusername=="Null":
-        username.send_keys("wemighthavesomethinghere")
-    else:
-        username.send_keys(iusername) 
+    username.send_keys(iusername)
 
     verified_checkbox = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[8]/div/input")
 
