@@ -34,7 +34,8 @@ st.text("")
 #    tweetImg = None
 tweetImg=1
 generate = st.button("Generate")
-
+name = "Won't Smith"
+username = "wemighthavesomethinghere"
 if generate:
     img = TG.generate(name,username,tweet,tweetImg)
     if img:
