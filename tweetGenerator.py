@@ -100,9 +100,9 @@ def generate(iname, iusername,itweet,itweet_image):
     client = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[14]/input")
     client.clear()
     client.send_keys("Twitter for Television")
-    fact_check = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[15]/input")
-    fact_check.clear()
-    fact_check.send_keys("Content seen above might not be an actual tweet")
+    #fact_check = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[15]/input")
+    #fact_check.clear()
+    #fact_check.send_keys("Content seen above might not be an actual tweet")
     
     
 
