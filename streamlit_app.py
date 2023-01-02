@@ -1,7 +1,7 @@
 import streamlit as st
-import tweetGenerator as TG
+import TweetGenerator as TG
 from PIL import Image
-import os
+import os,time
 
 def make_square(im, min_size=256, fill_color=(0, 0, 0, 0)):
     x, y = im.size
@@ -34,10 +34,22 @@ st.text("")
 #    tweetImg = None
 tweetImg=1
 generate = st.button("Generate")
-name = "Won't Smith"
+name = "thulpfiction"
 username = "wemighthavesomethinghere"
+value = 0
 if generate:
-    img = TG.generate(name,username,tweet,tweetImg)
+    text = "Generating..."
+    t=st.empty()
+    t.info(text)
+    my_progress = st.progress(0) 
+    img = TG.generate(name,username,tweet,tweetImg,my_progress,value)
+    my_progress.progress(50)
+    img2 = TG.generate("Won't Smith",username,retweet,tweetImg,my_progress,50)
+    #my_progress.progress(100)
+    text = "Generated!"
+    t.info(text)
+    st.snow()
+    time.sleep(1)
     if img:
         try:
             with open("finalImageStreamlit.png","wb") as file:
@@ -46,20 +58,16 @@ if generate:
             st.image("finalImageStreamlit2.png")
         except:
             st.text("Error in Tweet generation!")
-
+    
     st.text("_____________________________________________________________________________________________")
     st.text("---------------------------------------------------------------------------------------------")
 
-    img= TG.generate(name,username,retweet,tweetImg)
-    if img:
+    if img2:
         try:
             with open("RefinalImageStreamlit.png","wb") as file:
-                file.write(img)
+                file.write(img2)
             make_square(Image.open("RefinalImageStreamlit.png")).save("RefinalImageStreamlit2.png")
             st.image("RefinalImageStreamlit2.png")
 
         except:
             st.text("Error!")
-        
-
-
