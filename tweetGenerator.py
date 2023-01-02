@@ -64,7 +64,7 @@ def generate_tweet(iname, iusername,itweet,itweet_image,my_progress,value):
             popup_page = handle
     driver.switch_to.window(popup_page)
     profile_image = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[2]/div/input")
-    profile_image.send_keys(os.getcwd()+"\\spiderman.jpg")
+    profile_image.send_keys(os.getcwd()+"/spiderman.jpg")
     profile_done = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[3]/button")
     driver.execute_script("arguments[0].click();", profile_done)
     driver.switch_to.window(main_window)
@@ -74,7 +74,7 @@ def generate_tweet(iname, iusername,itweet,itweet_image,my_progress,value):
     
     #tweet_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[10]/input")
     """if itweet_image is not None:
-        tweet_image.send_keys(os.getcwd()+"\\uploadedTweetImg.jpg")
+        tweet_image.send_keys(os.getcwd()+"/uploadedTweetImg.jpg")
     else:
         tweet_image.clear()"""
 
@@ -149,7 +149,7 @@ def generate_retweet(iname, iusername, itweet,itweet_image, my_progress, value):
             popup_page = handle
     driver.switch_to.window(popup_page)
     profile_image = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[2]/div/input")
-    profile_image.send_keys(os.getcwd()+"\\spiderman.jpg")
+    profile_image.send_keys(os.getcwd()+"/spiderman.jpg")
     profile_done = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[3]/button")
     driver.execute_script("arguments[0].click();", profile_done)
     driver.switch_to.window(main_window)
@@ -159,7 +159,7 @@ def generate_retweet(iname, iusername, itweet,itweet_image, my_progress, value):
     
     #tweet_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[10]/input")
     """if itweet_image is not None:
-        tweet_image.send_keys(os.getcwd()+"\\uploadedTweetImg.jpg")
+        tweet_image.send_keys(os.getcwd()+"/uploadedTweetImg.jpg")
     else:
         tweet_image.clear()"""
 
