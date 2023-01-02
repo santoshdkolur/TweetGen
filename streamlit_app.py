@@ -1,5 +1,5 @@
 import streamlit as st
-import TweetGenerator as TG
+import tweetgen2 as TG
 from PIL import Image
 import os,time
 
@@ -42,9 +42,9 @@ if generate:
     t=st.empty()
     t.info(text)
     my_progress = st.progress(0) 
-    img = TG.generate(name,username,tweet,tweetImg,my_progress,value)
+    img = TG.generate_tweet(name,username,tweet,tweetImg,my_progress,value)
     my_progress.progress(50)
-    img2 = TG.generate("Won't Smith",username,retweet,tweetImg,my_progress,50)
+    img2 = TG.generate_retweet(name,username,retweet,tweetImg,my_progress,50)
     #my_progress.progress(100)
     text = "Generated!"
     t.info(text)
