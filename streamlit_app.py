@@ -47,8 +47,10 @@ if generate:
     #my_progress.progress(100)
     text = "Generated!"
     t.info(text)
-    st.snow()
     time.sleep(1)
+    
+    st.text("_____________________________________________________________________________________________")
+    st.text("---------------------------------------------------------------------------------------------")
     if img:
         try:
             with open("finalImageStreamlit.png","wb") as file:
