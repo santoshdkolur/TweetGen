@@ -35,78 +35,195 @@ def get_file_content_chrome(driver, uri):
     raise Exception("Request failed with status %s" % result)
   return base64.b64decode(result)
 
-def generate(iname, iusername,itweet,itweet_image):
-  
+def generate_tweet(iname, iusername,itweet,itweet_image,my_progress,value):
 
-    #driver = webdriver.Chrome('/app/tweetgen/chromedriver',chrome_options=options)
-    driver = get_driver()
-    
-    driver.get("https://www.tweetgen.com/create/tweet-classic.html")
-    theme = driver.find_element(by=By.XPATH,value="/html/body/div/div/div[1]/form/div[2]/div[3]/label")
+    driver = webdriver.Chrome('chromedriver.exe',chrome_options=options)
+
+    driver.get("https://www.tweetgen.com/create/tweet.html")
+    theme = driver.find_element(by=By.XPATH,value="/html/body/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[3]/input")
     theme.click()
-    name = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[6]/input")
+    name = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[1]/div[1]/span[1]")
     name.clear()
     name.send_keys(iname)
-    username = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[7]/div[1]/input")
+    username = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[1]/div[3]/span")
+    username.send_keys("wemighthavesomethinghere")
     username.clear()
     username.send_keys(iusername)
-
-    verified_checkbox = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[8]/div/input")
-
-    try:
-        verified_checkbox.click()
-    except:
-        verified_checkbox.click()
-
-    tweet = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[9]/textarea")
+    main_window = driver.current_window_handle 
+    my_progress.progress(value+20)
+    value+=20
+    tweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[2]/span")
     tweet.clear()
     tweet.send_keys(itweet)
-    profile_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[5]/input")
-    profile_image.send_keys(os.getcwd()+"/spiderman.jpg")
-
+    profile_click = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[1]/div[1]/img")
+    driver.execute_script("arguments[0].click();", profile_click)
+    sleep(2)
+    popup_page=""
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    driver.switch_to.window(popup_page)
+    profile_image = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[2]/div/input")
+    profile_image.send_keys(os.getcwd()+"\\spiderman.jpg")
+    profile_done = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[3]/button")
+    driver.execute_script("arguments[0].click();", profile_done)
+    driver.switch_to.window(main_window)
+    my_progress.progress(value+10)
+    value+=10
     
-    tweet_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[10]/input")
+    
+    #tweet_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[10]/input")
     """if itweet_image is not None:
-        tweet_image.send_keys("uploadedTweetImg.jpg")
+        tweet_image.send_keys(os.getcwd()+"\\uploadedTweetImg.jpg")
     else:
         tweet_image.clear()"""
 
-    time = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[11]/input")
-    time.send_keys("23:59")
-    date = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[12]/div[1]/div/div[1]/input")
-    date.clear()
-    date.send_keys("1")
-    month = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[12]/div[1]/div/div[2]/select")
-    month.send_keys("Apr")
-    year = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[12]/div[1]/div/div[3]/input")
-    year.clear()
-    year.send_keys("1969")
-    retweet = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[13]/div[1]/div/div[1]/input")
-    retweet.clear()
-    retweet.send_keys("4")
-    quote = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[13]/div[1]/div/div[2]/input")
-    quote.clear()
-    quote.send_keys("2")
-    likes = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[13]/div[1]/div/div[3]/input")
-    likes.clear()
-    likes.send_keys("0.0")
-    client = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[14]/input")
-    client.clear()
-    client.send_keys("Twitter for Television")
-    #fact_check = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[15]/input")
-    #fact_check.clear()
-    #fact_check.send_keys("Content seen above might not be an actual tweet")
-    
-    
+    date_time = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[5]/span[1]")
+    driver.execute_script("arguments[0].click();", date_time)
+    sleep(2)
+    popup_page=""
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    driver.switch_to.window(popup_page)
+    time = driver.find_element(by=By.ID, value ="timeInput")
+    driver.execute_script("arguments[0].value = '12:00';",time)
+    date = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[2]/div/div[2]/div/div[1]/input")
+    driver.execute_script("arguments[0].value = '1';",date)
+    month = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[2]/div/div[2]/div/div[2]/select")
+    driver.execute_script("arguments[0].value = 'Apr';",month)
+    year = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[2]/div/div[2]/div/div[3]/input")
+    driver.execute_script("arguments[0].value = '1969';",year)
+    done = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[3]/button")
+    driver.execute_script("arguments[0].click();", done)
+    driver.switch_to.window(main_window)
 
-    generate_image = driver.find_element(by=By.ID, value ="downloadButton")
+    retweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[6]/span[1]/b")
+    driver.execute_script("arguments[0].value = '4';",retweet)
+    quote = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[6]/span[2]/b")
+    driver.execute_script("arguments[0].value = '2';",quote)
+    
+    client = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[5]/span[2]/span")
+    #client.clear()
+    client.send_keys("Twitter for Television")
+
+    generate_image = driver.find_element(by=By.ID, value ="generateButton")
     wait2 =WebDriverWait(driver, 10)
     wait2.until(EC.element_to_be_clickable(generate_image))
     driver.execute_script("arguments[0].click();", generate_image)
-    # generate_image.click()
-    sleep(3)
-    final_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[2]/div/div[3]/img")
+    
+    #generate_image.click()
+    sleep(2)
+    final_image = driver.find_element(by=By.XPATH, value ="/html/body/div[5]/div/div/div[2]/img")
     src=final_image.get_attribute('src')
     img = get_file_content_chrome(driver,src)
-  
+    my_progress.progress(value+20)
+    return img
+
+
+def generate_retweet(iname, iusername, itweet,itweet_image, my_progress, value):
+    driver = webdriver.Chrome('chromedriver.exe',chrome_options=options)
+
+    driver.get("https://www.tweetgen.com/create/reply.html")
+    theme = driver.find_element(by=By.XPATH,value="/html/body/div/div/div/div[1]/div[1]/div[2]/div[1]/div[3]/input")
+    theme.click()
+    name = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]")
+    name.clear()
+    name.send_keys(iname)
+    username = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]")
+    username.send_keys("wemighthavesomethinghere")
+    username.clear()
+    username.send_keys(iusername)
+    main_window = driver.current_window_handle 
+    my_progress.progress(value+20)
+    value+=20
+    tweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[3]/div[1]/span")
+    tweet.clear()
+    tweet.send_keys(itweet)
+    profile_click = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div/div/div[1]/div[2]/div[1]/div[1]/div[1]/img")
+    driver.execute_script("arguments[0].click();", profile_click)
+    sleep(2)
+    popup_page=""
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    driver.switch_to.window(popup_page)
+    profile_image = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[2]/div/input")
+    profile_image.send_keys(os.getcwd()+"\\spiderman.jpg")
+    profile_done = driver.find_element(by=By.XPATH, value ="/html/body/div[2]/div/div/div[3]/button")
+    driver.execute_script("arguments[0].click();", profile_done)
+    driver.switch_to.window(main_window)
+    my_progress.progress(value+10)
+    value+=10
+    
+    
+    #tweet_image = driver.find_element(by=By.XPATH, value ="/html/body/div/div/div[1]/form/div[10]/input")
+    """if itweet_image is not None:
+        tweet_image.send_keys(os.getcwd()+"\\uploadedTweetImg.jpg")
+    else:
+        tweet_image.clear()"""
+
+    date_time = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[5]")
+    driver.execute_script("arguments[0].click();", date_time)
+    sleep(2)
+    popup_page=""
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    driver.switch_to.window(popup_page)
+    date = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[2]/div/div/div[1]/input")
+    driver.execute_script("arguments[0].value = '1';",date)
+    month = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[2]/div/div/div[2]/select")
+    driver.execute_script("arguments[0].value = 'Apr';",month)
+    year = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[2]/div/div/div[3]/input")
+    driver.execute_script("arguments[0].value = '1969';",year)
+    done = driver.find_element(by=By.XPATH, value ="/html/body/div[3]/div/div/div[3]/button")
+    driver.execute_script("arguments[0].click();", done)
+    driver.switch_to.window(main_window)
+
+    metrics = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[3]/div[4]")
+    driver.execute_script("arguments[0].click();", metrics)
+    sleep(2)
+    popup_page=""
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    driver.switch_to.window(popup_page)
+    retweet = driver.find_element(by=By.XPATH, value ="/html/body/div[4]/div/div/div[2]/div/div[2]/input")
+    driver.execute_script("arguments[0].value = '2';",retweet)
+    replies = driver.find_element(by=By.XPATH, value ="/html/body/div[4]/div/div/div[2]/div/div[1]/input")
+    driver.execute_script("arguments[0].value = '4';",replies)
+    done = driver.find_element(by=By.XPATH, value ="/html/body/div[4]/div/div/div[3]/button")
+    driver.execute_script("arguments[0].click();", done)
+    driver.switch_to.window(main_window)
+    
+    delete_tweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div/div/div[1]/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div")
+    #client.clear()
+    driver.execute_script("arguments[0].click();", delete_tweet)
+    delete_tweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div/div/div[1]/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/ul/li[3]/button")
+    driver.execute_script("arguments[0].click();", delete_tweet)
+    sleep(2)
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    driver.switch_to.window(popup_page)
+    delete_tweet = driver.find_element(by=By.XPATH, value ="/html/body/div[5]/div/div/div[3]/button[2]")
+    driver.execute_script("arguments[0].click();", delete_tweet)
+    driver.switch_to.window(main_window)
+
+    generate_image = driver.find_element(by=By.ID, value ="generateButton")
+    wait2 =WebDriverWait(driver, 10)
+    wait2.until(EC.element_to_be_clickable(generate_image))
+    driver.execute_script("arguments[0].click();", generate_image)
+    
+    
+    #generate_image.click()
+    sleep(2)
+    for handle in driver.window_handles:
+        if handle != main_window:
+            popup_page = handle
+    final_image = driver.find_element(by=By.XPATH, value ="/html/body/div[5]/div/div/div[2]/img")
+    src=final_image.get_attribute('src')
+    img = get_file_content_chrome(driver,src)
+    my_progress.progress(value+20)
     return img
