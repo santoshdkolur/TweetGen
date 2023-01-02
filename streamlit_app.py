@@ -1,5 +1,5 @@
 import streamlit as st
-import tweetgen2 as TG
+import tweetGenerator as TG
 from PIL import Image
 import os,time
 
