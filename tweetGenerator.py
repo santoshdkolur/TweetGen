@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 
 
 
@@ -99,9 +100,11 @@ def generate_tweet(iname, iusername,itweet,itweet_image,my_progress,value):
     driver.switch_to.window(main_window)
 
     retweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[6]/span[1]/b")
-    driver.execute_script("arguments[0].value = '4';",retweet)
+    retweet.clear()
+    retweet.send_keys(Keys.DELETE,"4")
     quote = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[6]/span[2]/b")
-    driver.execute_script("arguments[0].value = '2';",quote)
+    quote.clear()
+    quote.send_keys(Keys.DELETE,"2")
     
     client = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[5]/span[2]/span")
     #client.clear()
