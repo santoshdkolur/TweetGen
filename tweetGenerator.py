@@ -100,10 +100,8 @@ def generate_tweet(iname, iusername,itweet,itweet_image,my_progress,value):
     driver.switch_to.window(main_window)
 
     retweet = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[6]/span[1]/b")
-    retweet.clear()
     retweet.send_keys(Keys.DELETE,"4")
     quote = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[6]/span[2]/b")
-    quote.clear()
     quote.send_keys(Keys.DELETE,"2")
     
     client = driver.find_element(by=By.XPATH, value ="/html/body/div[1]/div[2]/div[1]/div[2]/div/div[5]/span[2]/span")
